@@ -1,0 +1,7 @@
+*.o
+
+# https://www.youtube.com/watch?v=zlInHO3mjcs
+*.swp
+
+bin/*
+!bin/.gitkeep
