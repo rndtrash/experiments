@@ -4,18 +4,19 @@
 #include <assert.h>
 #include <stdint.h>
 
+#include "tools.h"
+
 #define MAX_STRING_SIZE 32
 
 typedef enum
 {
-	STRING = 0,
-//	CHAR,
-//	BINARY_NUMBER,
-//	OCTAL_NUMBER,
-	DECIMAL_NUMBER,
-	HEXADECIMAL_NUMBER,
+	TEXT = 0,
+	NUMBER,
+	HEXADECIMAL_SEPARATOR,
+	BINARY_SEPARATOR,
 	SPACE,
 	COMMA,
+	COMMENT,
 	NEW_LINE
 } TOKEN_TYPE;
 
@@ -53,18 +54,17 @@ token_array *ta_new(size_t initialSize)
 
 void ta_free(token_array *tokenArray)
 {
+	printf("%s %" PR_SIZET "u %s", "Removing", tokenArray->length, "tokens...\n");
 	for (size_t i = 0; i < tokenArray->length; i++)
 	{
-		printf("%i %s %i\n",
+		printf("%i %s %" PR_SIZET "u\n",
 			tokenArray->tokens[i]->tokenType,
 			tokenArray->tokens[i]->value,
 			tokenArray->tokens[i]->size);
 		free(tokenArray->tokens[i]->value);
 		free(tokenArray->tokens[i]);
 	}
-	printf("%s\n", "Чистим сам массив");
 	free(tokenArray->tokens);
-	printf("%s\n", "Чистим структуру");
 	free(tokenArray);
 }
 
